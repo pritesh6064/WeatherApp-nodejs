@@ -11,6 +11,10 @@ const partialsPath = path.join(__dirname, '../templates/partials');
 
 const app = express();
 
+//Heroku will have this enivornment variable which will have in turn port number
+//we will provide 3000 is we run locally, it wont find process.env.port so it will take 3000
+const port = process.env.PORT || 3000;
+
 //Set handle bar for template engine
 app.set('view engine', 'hbs');
 
@@ -95,7 +99,8 @@ app.get('*', (req, resp) => {
     });
 });
 
-
-app.listen(3000, () => {
-    console.log('Server started on port number: 3000');
+//We won't be using statis port number while on heroku
+//Heroku provides port number from environment variables
+app.listen(port, () => {
+    console.log('Server started on port number: ' + port);
 });
